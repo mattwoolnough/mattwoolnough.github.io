@@ -2,48 +2,48 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://mattwoolnough.github.io/</loc>
+    <loc>http://woolnough.com.au/</loc>
     <lastmod>2015-10-26T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://mattwoolnough.github.io/blog/http-redirect-disallowed-for-transport-of-sso-response/</loc>
+    <loc>http://woolnough.com.au/blog/http-redirect-disallowed-for-transport-of-sso-response/</loc>
     <lastmod>2015-10-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://mattwoolnough.github.io/blog/pingfederate-ciphers/</loc>
+    <loc>http://woolnough.com.au/blog/pingfederate-ciphers/</loc>
     <lastmod>2015-10-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://mattwoolnough.github.io/blog/creating-a-new-publish-settings-file-from-azure-portal/</loc>
+    <loc>http://woolnough.com.au/blog/creating-a-new-publish-settings-file-from-azure-portal/</loc>
     <lastmod>2015-10-08T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://mattwoolnough.github.io/code/copying-drives-from-one-azure-subscription-to-another/</loc>
+    <loc>http://woolnough.com.au/code/copying-drives-from-one-azure-subscription-to-another/</loc>
     <lastmod>2015-10-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://mattwoolnough.github.io/blog/pingfederate-and-ad-kerberos-tokens/</loc>
+    <loc>http://woolnough.com.au/blog/pingfederate-and-ad-kerberos-tokens/</loc>
     <lastmod>2015-09-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://mattwoolnough.github.io/blog/casperjs-testing-pingfederate-html-form-adapter/</loc>
+    <loc>http://woolnough.com.au/blog/casperjs-testing-pingfederate-html-form-adapter/</loc>
     <lastmod>2014-11-19T14:50:04+10:00</lastmod>
   </url>
   
   <url>
-    <loc>http://mattwoolnough.github.io/code/unblock-dlls/</loc>
+    <loc>http://woolnough.com.au/code/unblock-dlls/</loc>
     <lastmod>2014-02-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://mattwoolnough.github.io/about/</loc>
+    <loc>http://woolnough.com.au/about/</loc>
   </url>
   
 </urlset>
