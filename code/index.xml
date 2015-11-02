@@ -244,7 +244,7 @@ Perform the same process for the Destination Side, storing the values as &lt;em&
       
       <guid>http://mattwoolnough.github.io/code/unblock-dlls/</guid>
       <description>&lt;p&gt;NTFS Alternate Data Streams (ADS) provides the mechanism for MS to block the execution of DLLs.  This is a security mechanism that was first introduced in XP SP2 &amp;amp; Windows 2003 SP1. More info &lt;a href=&#34;http://community.bartdesmet.net/blogs/bart/archive/2005/08/19/3485.aspx&#34;&gt;here&lt;/a&gt;.
-Alternate data streams is also a popular way for hackers to hide files from administrators, but that&amp;rsquo;s another &lt;a href=&#34;http://www.irongeek.com/i.php?page=security/altds&#34;&gt;story&lt;/a&gt;.&lt;/p&gt;
+Alternate data streams is also a popular way for hackers to &lt;a href=&#34;http://www.irongeek.com/i.php?page=security/altds&#34;&gt;hide files from administrators&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;The typical method used to remove the offending ADS, is by right clicking the DLL selecting properties and then clicking Unblock.
 This can become tedious if there are a lot of DLLs to unblock, or if it needs to be done frequently.&lt;/p&gt;
