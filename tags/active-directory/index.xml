@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Active Directory on Woolnough</title>
-    <link>http://mattwoolnough.github.io/tags/active-directory/</link>
+    <link>http://woolnough.com.au/tags/active-directory/</link>
     <description>Recent content in Active Directory on Woolnough</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Copyright (c) 2015, Matthew Woolnough; all rights reserved.</copyright>
     <lastBuildDate>Thu, 10 Sep 2015 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://mattwoolnough.github.io/tags/active-directory/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://woolnough.com.au/tags/active-directory/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>PingFederate and Active Directory Kerberos Tokens</title>
-      <link>http://mattwoolnough.github.io/blog/pingfederate-and-ad-kerberos-tokens/</link>
+      <link>http://woolnough.com.au/blog/pingfederate-and-ad-kerberos-tokens/</link>
       <pubDate>Thu, 10 Sep 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://mattwoolnough.github.io/blog/pingfederate-and-ad-kerberos-tokens/</guid>
+      <guid>http://woolnough.com.au/blog/pingfederate-and-ad-kerberos-tokens/</guid>
       <description>&lt;p&gt;An old AD issue that pops up from time to time is Kerberos Token Bloat. In a nutshell, the AD groups you&amp;rsquo;re a member of, the bigger your Kerberos Token. Eventually your token gets too big and stuff breaks.&lt;/p&gt;
 
 &lt;p&gt;In the most common use case, when you attempt to access a web site, the Kerberos token is encoded and placed in the Authorization header of the Internet Explorer HTTP request.&lt;/p&gt;

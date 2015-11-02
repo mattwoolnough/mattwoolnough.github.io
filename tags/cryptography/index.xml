@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Cryptography on Woolnough</title>
-    <link>http://mattwoolnough.github.io/tags/cryptography/</link>
+    <link>http://woolnough.com.au/tags/cryptography/</link>
     <description>Recent content in Cryptography on Woolnough</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Copyright (c) 2015, Matthew Woolnough; all rights reserved.</copyright>
     <lastBuildDate>Sat, 10 Oct 2015 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://mattwoolnough.github.io/tags/cryptography/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://woolnough.com.au/tags/cryptography/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>PingFederate 8 Ciphers</title>
-      <link>http://mattwoolnough.github.io/blog/pingfederate-ciphers/</link>
+      <link>http://woolnough.com.au/blog/pingfederate-ciphers/</link>
       <pubDate>Sat, 10 Oct 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://mattwoolnough.github.io/blog/pingfederate-ciphers/</guid>
+      <guid>http://woolnough.com.au/blog/pingfederate-ciphers/</guid>
       <description>
 
 &lt;p&gt;TL;DR It&amp;rsquo;s a good idea to install JCE.&lt;/p&gt;

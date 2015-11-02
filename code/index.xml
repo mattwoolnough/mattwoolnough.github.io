@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Code on Woolnough</title>
-    <link>http://mattwoolnough.github.io/code/</link>
+    <link>http://woolnough.com.au/code/</link>
     <description>Recent content in Code on Woolnough</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Copyright (c) 2015, Matthew Woolnough; all rights reserved.</copyright>
     <lastBuildDate>Tue, 06 Oct 2015 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://mattwoolnough.github.io/code/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://woolnough.com.au/code/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Copying VHDs from one Azure subscription to another</title>
-      <link>http://mattwoolnough.github.io/code/copying-drives-from-one-azure-subscription-to-another/</link>
+      <link>http://woolnough.com.au/code/copying-drives-from-one-azure-subscription-to-another/</link>
       <pubDate>Tue, 06 Oct 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://mattwoolnough.github.io/code/copying-drives-from-one-azure-subscription-to-another/</guid>
+      <guid>http://woolnough.com.au/code/copying-drives-from-one-azure-subscription-to-another/</guid>
       <description>
 
 &lt;p&gt;The comes a time when you need to move VHDs between Azure subscriptions. You have the option of downloading the VHD locally, but at around 120GB in size, it could take a while.&lt;/p&gt;
@@ -91,11 +91,11 @@ $blob | Get-AzureStorageBlobCopyState  -WaitForComplete
 
 &lt;p&gt;Download and run the wpilauncher using the link above. Click &lt;em&gt;Add&lt;/em&gt; on the Microsoft Azure PowerShell line, then click install.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://mattwoolnough.github.io/media/2015-10-06 09_50_43-Web Platform Installer 5.0.png&#34; alt=&#34;alt text&#34; title=&#34;Web Platform Installer&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://woolnough.com.au/media/2015-10-06 09_50_43-Web Platform Installer 5.0.png&#34; alt=&#34;alt text&#34; title=&#34;Web Platform Installer&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;On the Prerequisites screen, review the license terms and click &lt;em&gt;I Accept&lt;/em&gt; to continue.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://mattwoolnough.github.io/media/2015-10-06 10_34_54-Web Platform Installer 5.0.png&#34; alt=&#34;WPI EULA&#34; title=&#34;WPI EULA&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://woolnough.com.au/media/2015-10-06 10_34_54-Web Platform Installer 5.0.png&#34; alt=&#34;WPI EULA&#34; title=&#34;WPI EULA&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Once complete, click &lt;em&gt;Finish&lt;/em&gt; and then &lt;em&gt;exit&lt;/em&gt;&lt;/p&gt;
 
@@ -138,7 +138,7 @@ Click either &lt;em&gt;Storage Accounts (classic)&lt;/em&gt; or &lt;em&gt;Storag
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://mattwoolnough.github.io/media/2015-10-06%2016_56_34-Virtual%20machines%20%28classic%29%20-%20Microsoft%20Azure.png&#34; /&gt;
+        &lt;img src=&#34;http://woolnough.com.au/media/2015-10-06%2016_56_34-Virtual%20machines%20%28classic%29%20-%20Microsoft%20Azure.png&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -148,7 +148,7 @@ Click either &lt;em&gt;Storage Accounts (classic)&lt;/em&gt; or &lt;em&gt;Storag
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://mattwoolnough.github.io/media/2015-10-06%2017_04_47-Settings%20-%20Microsoft%20Azure.png&#34; /&gt;
+        &lt;img src=&#34;http://woolnough.com.au/media/2015-10-06%2017_04_47-Settings%20-%20Microsoft%20Azure.png&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -158,7 +158,7 @@ Click either &lt;em&gt;Storage Accounts (classic)&lt;/em&gt; or &lt;em&gt;Storag
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://mattwoolnough.github.io/media/2015-10-06%2017_45_06-Manage%20keys%20-%20Microsoft%20Azure.png&#34; /&gt;
+        &lt;img src=&#34;http://woolnough.com.au/media/2015-10-06%2017_45_06-Manage%20keys%20-%20Microsoft%20Azure.png&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -174,7 +174,7 @@ Perform the same process for the Destination Side, storing the values as &lt;em&
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://mattwoolnough.github.io/media/2015-10-06%2017_09_27-Storage%20accounts%20%28classic%29%20-%20Microsoft%20Azure.png&#34; /&gt;
+        &lt;img src=&#34;http://woolnough.com.au/media/2015-10-06%2017_09_27-Storage%20accounts%20%28classic%29%20-%20Microsoft%20Azure.png&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -184,7 +184,7 @@ Perform the same process for the Destination Side, storing the values as &lt;em&
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://mattwoolnough.github.io/media/2015-10-06%2017_11_49-Settings%20-%20Microsoft%20Azure.png&#34; /&gt;
+        &lt;img src=&#34;http://woolnough.com.au/media/2015-10-06%2017_11_49-Settings%20-%20Microsoft%20Azure.png&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -194,7 +194,7 @@ Perform the same process for the Destination Side, storing the values as &lt;em&
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://mattwoolnough.github.io/media/2015-10-06%2017_42_01-VicUniADSERVER-VicUniADSERVER-2015-05-26.vhd%20-%20Microsoft%20Azure.png&#34; /&gt;
+        &lt;img src=&#34;http://woolnough.com.au/media/2015-10-06%2017_42_01-VicUniADSERVER-VicUniADSERVER-2015-05-26.vhd%20-%20Microsoft%20Azure.png&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -219,7 +219,7 @@ Perform the same process for the Destination Side, storing the values as &lt;em&
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://mattwoolnough.github.io/media/2015-10-06%2016_36_13-Microsoft%20Azure%20PowerShell.png&#34; /&gt;
+        &lt;img src=&#34;http://woolnough.com.au/media/2015-10-06%2016_36_13-Microsoft%20Azure%20PowerShell.png&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -229,7 +229,7 @@ Perform the same process for the Destination Side, storing the values as &lt;em&
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://mattwoolnough.github.io/media/2015-10-06%2017_31_58-Select%20Microsoft%20Azure%20PowerShell.png&#34; /&gt;
+        &lt;img src=&#34;http://woolnough.com.au/media/2015-10-06%2017_31_58-Select%20Microsoft%20Azure%20PowerShell.png&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -239,10 +239,10 @@ Perform the same process for the Destination Side, storing the values as &lt;em&
     
     <item>
       <title>Unblocking DLLs</title>
-      <link>http://mattwoolnough.github.io/code/unblock-dlls/</link>
+      <link>http://woolnough.com.au/code/unblock-dlls/</link>
       <pubDate>Sat, 01 Feb 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://mattwoolnough.github.io/code/unblock-dlls/</guid>
+      <guid>http://woolnough.com.au/code/unblock-dlls/</guid>
       <description>&lt;p&gt;NTFS Alternate Data Streams (ADS) provides the mechanism for MS to block the execution of DLLs.  This is a security mechanism that was first introduced in XP SP2 &amp;amp; Windows 2003 SP1. More info &lt;a href=&#34;http://community.bartdesmet.net/blogs/bart/archive/2005/08/19/3485.aspx&#34;&gt;here&lt;/a&gt;.
 Alternate data streams is also a popular way for hackers to &lt;a href=&#34;http://www.irongeek.com/i.php?page=security/altds&#34;&gt;hide files from administrators&lt;/a&gt;.&lt;/p&gt;
 

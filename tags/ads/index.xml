@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ads on Woolnough</title>
-    <link>http://mattwoolnough.github.io/tags/ads/</link>
+    <link>http://woolnough.com.au/tags/ads/</link>
     <description>Recent content in Ads on Woolnough</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Copyright (c) 2015, Matthew Woolnough; all rights reserved.</copyright>
     <lastBuildDate>Sat, 01 Feb 2014 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://mattwoolnough.github.io/tags/ads/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://woolnough.com.au/tags/ads/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Unblocking DLLs</title>
-      <link>http://mattwoolnough.github.io/code/unblock-dlls/</link>
+      <link>http://woolnough.com.au/code/unblock-dlls/</link>
       <pubDate>Sat, 01 Feb 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://mattwoolnough.github.io/code/unblock-dlls/</guid>
+      <guid>http://woolnough.com.au/code/unblock-dlls/</guid>
       <description>&lt;p&gt;NTFS Alternate Data Streams (ADS) provides the mechanism for MS to block the execution of DLLs.  This is a security mechanism that was first introduced in XP SP2 &amp;amp; Windows 2003 SP1. More info &lt;a href=&#34;http://community.bartdesmet.net/blogs/bart/archive/2005/08/19/3485.aspx&#34;&gt;here&lt;/a&gt;.
 Alternate data streams is also a popular way for hackers to &lt;a href=&#34;http://www.irongeek.com/i.php?page=security/altds&#34;&gt;hide files from administrators&lt;/a&gt;.&lt;/p&gt;
 

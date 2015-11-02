@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blog on Woolnough</title>
-    <link>http://mattwoolnough.github.io/blog/</link>
+    <link>http://woolnough.com.au/blog/</link>
     <description>Recent content in Blog on Woolnough</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Copyright (c) 2015, Matthew Woolnough; all rights reserved.</copyright>
     <lastBuildDate>Mon, 26 Oct 2015 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://mattwoolnough.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://woolnough.com.au/blog/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>HTTP-Redirect disallowed for transport of SSO response</title>
-      <link>http://mattwoolnough.github.io/blog/http-redirect-disallowed-for-transport-of-sso-response/</link>
+      <link>http://woolnough.com.au/blog/http-redirect-disallowed-for-transport-of-sso-response/</link>
       <pubDate>Mon, 26 Oct 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://mattwoolnough.github.io/blog/http-redirect-disallowed-for-transport-of-sso-response/</guid>
+      <guid>http://woolnough.com.au/blog/http-redirect-disallowed-for-transport-of-sso-response/</guid>
       <description>&lt;p&gt;This one is probably obvious to the initiated, but had me scratching my head for a little while, so I thought it worth posting.&lt;/p&gt;
 
 &lt;p&gt;PingFederate when asked to perform an SP Initiated SSO Redirect-Redirect, fails with the following error in the logs.&lt;/p&gt;
@@ -50,10 +50,10 @@ The reasoning behind this is that the SAML response is typically quite long and 
     
     <item>
       <title>PingFederate 8 Ciphers</title>
-      <link>http://mattwoolnough.github.io/blog/pingfederate-ciphers/</link>
+      <link>http://woolnough.com.au/blog/pingfederate-ciphers/</link>
       <pubDate>Sat, 10 Oct 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://mattwoolnough.github.io/blog/pingfederate-ciphers/</guid>
+      <guid>http://woolnough.com.au/blog/pingfederate-ciphers/</guid>
       <description>
 
 &lt;p&gt;TL;DR It&amp;rsquo;s a good idea to install JCE.&lt;/p&gt;
@@ -188,26 +188,26 @@ Note: If you want to be super cautious, disable &lt;strong&gt;TLS_DHE_RSA_WITH_A
     
     <item>
       <title>Creating a new publish settings file from azure portal</title>
-      <link>http://mattwoolnough.github.io/blog/creating-a-new-publish-settings-file-from-azure-portal/</link>
+      <link>http://woolnough.com.au/blog/creating-a-new-publish-settings-file-from-azure-portal/</link>
       <pubDate>Thu, 08 Oct 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://mattwoolnough.github.io/blog/creating-a-new-publish-settings-file-from-azure-portal/</guid>
+      <guid>http://woolnough.com.au/blog/creating-a-new-publish-settings-file-from-azure-portal/</guid>
       <description>&lt;p&gt;With the introduction of Azure Resource Manager (ARM), it&amp;rsquo;s necessary to use &lt;a href=&#34;https://msdn.microsoft.com/en-us/library/dn495128.aspx&#34;&gt;Add-AzureAccount&lt;/a&gt; in many scenarios to get access to Azure using PowerShell. Sometimes you just need to quickly grab the publishsettings file however. I find it easiest to type the following into the browser:
 &lt;a href=&#34;https://manage.windowsazure.com/publishsettings&#34;&gt;https://manage.windowsazure.com/publishsettings&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;You will need to log into your Azure tenancy in the browser, if you are not already, but typically you&amp;rsquo;re already logged in and the publish settings file immediately downloads. This is especially helpful when you have multiple tenancies open in different browsers, like in the this previous code &lt;a href=&#34;http://mattwoolnough.github.io/code/copying-drives-from-one-azure-subscription-to-another/&#34;&gt;post&lt;/a&gt;.
+&lt;p&gt;You will need to log into your Azure tenancy in the browser, if you are not already, but typically you&amp;rsquo;re already logged in and the publish settings file immediately downloads. This is especially helpful when you have multiple tenancies open in different browsers, like in the this previous code &lt;a href=&#34;http://woolnough.com.au/code/copying-drives-from-one-azure-subscription-to-another/&#34;&gt;post&lt;/a&gt;.
  Remember to be cautious with these publishsettings files, as they&amp;rsquo;re the keys to your kingdom whilst they&amp;rsquo;re active!&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://mattwoolnough.github.io/media/2015-10-08 16_56_09-Downloading-the-publish-profile.png&#34; alt=&#34;Your subscription file is being generated, and the download will begin shortly Web Page&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://woolnough.com.au/media/2015-10-08 16_56_09-Downloading-the-publish-profile.png&#34; alt=&#34;Your subscription file is being generated, and the download will begin shortly Web Page&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>PingFederate and Active Directory Kerberos Tokens</title>
-      <link>http://mattwoolnough.github.io/blog/pingfederate-and-ad-kerberos-tokens/</link>
+      <link>http://woolnough.com.au/blog/pingfederate-and-ad-kerberos-tokens/</link>
       <pubDate>Thu, 10 Sep 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://mattwoolnough.github.io/blog/pingfederate-and-ad-kerberos-tokens/</guid>
+      <guid>http://woolnough.com.au/blog/pingfederate-and-ad-kerberos-tokens/</guid>
       <description>&lt;p&gt;An old AD issue that pops up from time to time is Kerberos Token Bloat. In a nutshell, the AD groups you&amp;rsquo;re a member of, the bigger your Kerberos Token. Eventually your token gets too big and stuff breaks.&lt;/p&gt;
 
 &lt;p&gt;In the most common use case, when you attempt to access a web site, the Kerberos token is encoded and placed in the Authorization header of the Internet Explorer HTTP request.&lt;/p&gt;
@@ -274,10 +274,10 @@ function  CalcMethodCol3(oS:  Session){
     
     <item>
       <title>CasperJS testing PingFederate HTML form adapter</title>
-      <link>http://mattwoolnough.github.io/blog/casperjs-testing-pingfederate-html-form-adapter/</link>
+      <link>http://woolnough.com.au/blog/casperjs-testing-pingfederate-html-form-adapter/</link>
       <pubDate>Wed, 19 Nov 2014 14:50:04 +1000</pubDate>
       
-      <guid>http://mattwoolnough.github.io/blog/casperjs-testing-pingfederate-html-form-adapter/</guid>
+      <guid>http://woolnough.com.au/blog/casperjs-testing-pingfederate-html-form-adapter/</guid>
       <description>
 
 &lt;p&gt;During a deployment of Ping Identity&amp;rsquo;s &lt;a href=&#34;https://www.pingidentity.com/en/products/pingfederate.html&#34;&gt;PingFederate&lt;/a&gt; product, we had a need to automate logging into the HTML Form Adapter.  Whilst there are many ways to automate this, I really liked this one, and thought it worth sharing.&lt;/p&gt;

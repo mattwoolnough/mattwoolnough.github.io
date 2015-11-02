@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Pingfederate on Woolnough</title>
-    <link>http://mattwoolnough.github.io/tags/pingfederate/</link>
+    <link>http://woolnough.com.au/tags/pingfederate/</link>
     <description>Recent content in Pingfederate on Woolnough</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Copyright (c) 2015, Matthew Woolnough; all rights reserved.</copyright>
     <lastBuildDate>Mon, 26 Oct 2015 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://mattwoolnough.github.io/tags/pingfederate/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://woolnough.com.au/tags/pingfederate/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>HTTP-Redirect disallowed for transport of SSO response</title>
-      <link>http://mattwoolnough.github.io/blog/http-redirect-disallowed-for-transport-of-sso-response/</link>
+      <link>http://woolnough.com.au/blog/http-redirect-disallowed-for-transport-of-sso-response/</link>
       <pubDate>Mon, 26 Oct 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://mattwoolnough.github.io/blog/http-redirect-disallowed-for-transport-of-sso-response/</guid>
+      <guid>http://woolnough.com.au/blog/http-redirect-disallowed-for-transport-of-sso-response/</guid>
       <description>&lt;p&gt;This one is probably obvious to the initiated, but had me scratching my head for a little while, so I thought it worth posting.&lt;/p&gt;
 
 &lt;p&gt;PingFederate when asked to perform an SP Initiated SSO Redirect-Redirect, fails with the following error in the logs.&lt;/p&gt;
@@ -50,10 +50,10 @@ The reasoning behind this is that the SAML response is typically quite long and 
     
     <item>
       <title>PingFederate 8 Ciphers</title>
-      <link>http://mattwoolnough.github.io/blog/pingfederate-ciphers/</link>
+      <link>http://woolnough.com.au/blog/pingfederate-ciphers/</link>
       <pubDate>Sat, 10 Oct 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://mattwoolnough.github.io/blog/pingfederate-ciphers/</guid>
+      <guid>http://woolnough.com.au/blog/pingfederate-ciphers/</guid>
       <description>
 
 &lt;p&gt;TL;DR It&amp;rsquo;s a good idea to install JCE.&lt;/p&gt;
@@ -188,10 +188,10 @@ Note: If you want to be super cautious, disable &lt;strong&gt;TLS_DHE_RSA_WITH_A
     
     <item>
       <title>PingFederate and Active Directory Kerberos Tokens</title>
-      <link>http://mattwoolnough.github.io/blog/pingfederate-and-ad-kerberos-tokens/</link>
+      <link>http://woolnough.com.au/blog/pingfederate-and-ad-kerberos-tokens/</link>
       <pubDate>Thu, 10 Sep 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://mattwoolnough.github.io/blog/pingfederate-and-ad-kerberos-tokens/</guid>
+      <guid>http://woolnough.com.au/blog/pingfederate-and-ad-kerberos-tokens/</guid>
       <description>&lt;p&gt;An old AD issue that pops up from time to time is Kerberos Token Bloat. In a nutshell, the AD groups you&amp;rsquo;re a member of, the bigger your Kerberos Token. Eventually your token gets too big and stuff breaks.&lt;/p&gt;
 
 &lt;p&gt;In the most common use case, when you attempt to access a web site, the Kerberos token is encoded and placed in the Authorization header of the Internet Explorer HTTP request.&lt;/p&gt;
