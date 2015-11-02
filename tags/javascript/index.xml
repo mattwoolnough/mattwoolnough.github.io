@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Javascript on Woolnough</title>
+    <link>http://mattwoolnough.github.io/tags/javascript/</link>
+    <description>Recent content in Javascript on Woolnough</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright (c) 2015, Matthew Woolnough; all rights reserved.</copyright>
+    <lastBuildDate>Wed, 19 Nov 2014 14:50:04 +1000</lastBuildDate>
+    <atom:link href="http://mattwoolnough.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>CasperJS testing PingFederate HTML form adapter</title>
+      <link>http://mattwoolnough.github.io/blog/casperjs-testing-pingfederate-html-form-adapter/</link>
+      <pubDate>Wed, 19 Nov 2014 14:50:04 +1000</pubDate>
+      
+      <guid>http://mattwoolnough.github.io/blog/casperjs-testing-pingfederate-html-form-adapter/</guid>
+      <description>
+
+&lt;p&gt;During a deployment of Ping Identity&amp;rsquo;s &lt;a href=&#34;https://www.pingidentity.com/en/products/pingfederate.html&#34;&gt;PingFederate&lt;/a&gt; product, we had a need to automate logging into the HTML Form Adapter.  Whilst there are many ways to automate this, I really liked this one, and thought it worth sharing.&lt;/p&gt;
+
+&lt;p&gt;The solution has 2 components:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://phantomjs.org&#34;&gt;PhantomJS&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://casperjs.org&#34;&gt;CasperJS&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;phantomjs:0b8a11de59b185de606bc0cf3613b22a&#34;&gt;PhantomJS&lt;/h1&gt;
+
+&lt;p&gt;PhantomJS is a headless browser this uses the WebKit browser by default, but can also use the Gecko engine courtesy of SlimerJS.&lt;/p&gt;
+
+&lt;h1 id=&#34;casperjs:0b8a11de59b185de606bc0cf3613b22a&#34;&gt;CasperJS&lt;/h1&gt;
+
+&lt;p&gt;CasperJS started life as a bunch of scripts which drove PhantomJS &amp;amp; has since evolved into a full framework. This code utilizes version 1.1 of CasperJS, which despite being a development version is quite stable and is in fact the version the maintainers of CasperJS recommend.&lt;/p&gt;
+
+&lt;h2 id=&#34;installation:0b8a11de59b185de606bc0cf3613b22a&#34;&gt;Installation&lt;/h2&gt;
+
+&lt;h3 id=&#34;windows:0b8a11de59b185de606bc0cf3613b22a&#34;&gt;Windows&lt;/h3&gt;
+
+&lt;p&gt;Download phantomjs: &lt;a href=&#34;http://phantomjs.org/download.html&#34;&gt;http://phantomjs.org/download.html&lt;/a&gt;
+Unzip it to C:\phantomjs&lt;/p&gt;
+
+&lt;p&gt;Download the latest zip from this page: &lt;a href=&#34;http://docs.casperjs.org/en/latest/installation.html&#34;&gt;http://docs.casperjs.org/en/latest/installation.html&lt;/a&gt; and unzip to a safe &amp;amp; sensible location like C:\casperjs&lt;/p&gt;
+
+&lt;p&gt;Modify the PATH variable to make the binary accessible&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;setx PATH &amp;quot;%PATH%;C:\phantomjs\;C:\casperjs\bin&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;linux:0b8a11de59b185de606bc0cf3613b22a&#34;&gt;Linux&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ wget https://phantomjs.googlecode.com/files/phantomjs-1.9.8-linux-x86_64.tar.bz2
+$ tar xvjf phantomjs-1.9.8-linux-x86_64.tar.bz2
+$ cd phantomjs-1.9.8-linux-x86_64
+$ sudo ln -sf &amp;quot;$(pwd)&amp;quot;/bin/phantomjs /usr/local/bin/phantomjs
+$ cd ..
+$ git clone git://github.com/n1k0/casperjs.git
+$ cd casperjs
+$ sudo ln -sf &amp;quot;$(pwd)&amp;quot;/bin/casperjs /usr/local/bin/casperjs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;mac:0b8a11de59b185de606bc0cf3613b22a&#34;&gt;Mac&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;brew update &amp;amp;&amp;amp; brew install phantomjs
+brew install casperjs --devel
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;configuration:0b8a11de59b185de606bc0cf3613b22a&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;The configuration required is minimal.&lt;/p&gt;
+
+&lt;p&gt;PhantomJS by default utilizes SSLv3, so if you encounter the following warning and the script continually fails to complete:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-language-bash&#34;&gt;[warning] [phantom] Loading resource failed with status=fail: https://fed.companyb.com/idp/prp.wsf?wa=wsignin1.0&amp;amp;wtrealm=https://applicationa.companyb.com/&amp;amp;wfresh=15&amp;amp;wctx=rm=0&amp;amp;id=passive&amp;amp;ru=%2fCIS%2f&amp;amp;wct=2014-11-19T05:34:06Z
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The solution is to enable TLS using one of the following methods:&lt;/p&gt;
+
+&lt;p&gt;1) Specify the protocol to use each time you execute casperjs:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;casperjs --ssl-protocol=tlsv1&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;2) Or, edit the file C:\casperjs\bin\casperjs and add the above switch to the ENGINE_ARGS&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ENGINE_ARGS = [&#39;ssl-protocol=tlsv1&#39;]&lt;/code&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;solution-code:0b8a11de59b185de606bc0cf3613b22a&#34;&gt;Solution code&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;&amp;quot;use strict&amp;quot;;
+ 
+var  url = &#39;https://applicationa.companyb.com/&#39;,
+username = &#39;mattheww&#39;,
+password = &#39;password&#39;,
+   debug = true,
+logLevel = null;
+  
+if (debug) {
+  logLevel = &#39;debug&#39;;
+} else {
+  logLevel = &#39;info&#39;;
+}
+ 
+var casper = require(&#39;casper&#39;).create({
+  pageSettings: {
+    loadImages:  false,   // The WebPage instance used by Casper will
+    loadPlugins: false,   // use these settings
+    userAgent: &#39;Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.2 Safari/537.36&#39;
+  },
+    logLevel: logLevel,   // debug; info; warning; error
+    verbose: true,        // log messages will be printed out to the console
+    options: {
+      waitTimeout: 25000, // Timeout of 25 sec
+    }
+});
+
+casper.start(url, function () {
+  this.log(&#39;Attempting login to &#39; + url, &#39;info&#39;);
+  this.fill(&#39;form&#39;, {
+    &#39;pf.username&#39;: username,
+    &#39;pf.pass&#39;: password
+  }, true);
+});
+
+casper.then(function() {
+  var currentURL = this.getCurrentUrl();
+  if (currentURL === url) {
+    console.log(&amp;quot;SUCCESS!: We&#39;re in &amp;quot; + currentURL);
+  } else if (/prp.ping$/i.test(currentURL)) {
+    console.log(&amp;quot;FAIL!: We&#39;re stuck on prp.ping&amp;quot;);
+      if (debug) {
+        // Dump whole page for visual inspection
+        var page = this.evaluate(function() {
+                       return document;
+        });
+        this.echo(page.all[0].outerHTML);
+      } else {
+        if (this.exists(&#39;div.ping-body form div div&#39;)) {
+          var msg = this.fetchText(&#39;div.ping-body form div div&#39;);
+          var msgArray = msg.split(&#39;\t&#39;);
+          this.echo(msgArray[0]);
+        } else if (this.exists(&#39;div.ping-body&#39;)) {
+          var pingBody = this.fetchText(&#39;div.ping-body&#39;);
+          if (pingBody.indexOf(&#39;Access denied (403)&#39;) &amp;gt;= 0 ) {
+            this.echo(pingBody);
+          }
+        }
+      }
+  }
+});
+ 
+casper.run();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When successful,the output should resemble below&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;C:\casperjs\bin&amp;gt;casperjs.exe ..\mw\run.js
+[info] [phantom] Starting...
+[info] [phantom] Running suite: 3 steps
+[info] [phantom] Step anonymous 2/3 https://fed.companyb.com/idp/ZVlk9/resume/idp/prp.ping (HTTP 200)
+[info] [phantom] Attempting login to https://applicationa.companyb.com/
+[info] [remote] attempting to fetch form element from selector: &#39;form&#39;
+[info] [remote] submitting form to /idp/ZVlk9/resume/idp/prp.ping, HTTP POST
+[info] [phantom] Step anonymous 2/3: done in 154ms.
+[info] [phantom] Step anonymous 3/3 https://applicationa.companyb.com/ (HTTP 200)
+SUCCESS!: We&#39;re in https://applicationa.companyb.com/
+[info] [phantom] Step anonymous 3/3: done in 730ms.
+[info] [phantom] Done 3 steps in 749ms
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A failure will resemble the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;C:\casperjs\bin&amp;gt;casperjs ..\mw\run.js 
+[info] [phantom] Starting...
+[info] [phantom] Running suite: 3 steps
+[info] [phantom] Step anonymous 2/3 https://fed.companyb.com/idp/82l2u/resume/idp/prp.ping (HTTP 200)
+[info] [phantom] Attempting login to https://applicationa.companyb.com/
+[info] [remote] attempting to fetch form element from selector: &#39;form&#39;
+[info] [remote] submitting form to /idp/82l2u/resume/idp/prp.ping, HTTP POST
+[info] [phantom] Step anonymous 2/3: done in 163ms.
+[info] [phantom] Step anonymous 3/3 https://fed.companyb.com/idp/82l2u/resume/idp/prp.ping (HTTP 200)
+FAIL!: We&#39;re stuck on prp.ping
+Authentication failed. You have used an invalid username and/or password.
+[info] [phantom] Step anonymous 3/3: done in 469ms.
+[info] [phantom] Done 3 steps in 485ms
+ 
+C:\casperjs\bin&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

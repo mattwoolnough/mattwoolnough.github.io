@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+    <head>
+        <meta charset="utf-8">
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        
+        <meta name="keywords" content="Azure, PowerShell, Cloud, ">
+
+         
+        <meta property="og:type" content="article"/>
+        <meta property="og:description" content=""/>
+        <meta property="og:title" content="Copying VHDs from one Azure subscription to another : woolnough.com.au"/>
+        <meta property="og:site_name" content="Site by Matthew Woolnough"/>
+        <meta property="og:image" content="" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="" />
+        <meta property="og:image:height" content="" />
+        <meta property="og:url" content="http://mattwoolnough.github.io/code/copying-drives-from-one-azure-subscription-to-another/">
+        <meta property="og:locale" content="en_US">
+        <meta property="article:published_time" content="2015-10-06"/>
+        <meta property="article:modified_time" content="2015-10-06"/>
+
+
+        
+        <meta property="article:tag" content="Azure">
+        <meta property="article:tag" content="PowerShell">
+        <meta property="article:tag" content="Cloud">
+        
+        
+
+        
+        <meta name="twitter:card" content="summary">
+        
+        <meta name="twitter:site" content="@mattwoolnough">
+        <meta name="twitter:title" content="Copying VHDs from one Azure subscription to another : woolnough.com.au">
+        <meta name="twitter:creator" content="@mattwoolnough">
+        <meta name="twitter:description" content="">
+        <meta name="twitter:image:src" content="">
+        <meta name="twitter:domain" content="woolnough.com.au">
+
+
+
+        <base href="/">
+        <title> Copying VHDs from one Azure subscription to another - woolnough.com.au </title>
+        <link rel="canonical" href="http://mattwoolnough.github.io/code/copying-drives-from-one-azure-subscription-to-another/">
+        
+
+        <link href='http://fonts.googleapis.com/css?family=Fjalla+One|Open+Sans:300' rel='stylesheet' type='text/css' />
+        <link rel="stylesheet" href="/css/style.css" />
+        <link rel="stylesheet" href="/css/prism.css" />
+        <link rel="stylesheet" href="/css/tables.css" />
+        <link type="text/css" rel="stylesheet" href="/css/search.css" media="all" />
+
+        
+        <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    </head>
+
+<body lang="en" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+        <a href="/" border=0 id="logolink">
+            <img src="/media/wolf_circ.png" id="logo">
+        </img></a>
+    </figure>
+    <div id="byline">by Matthew Woolnough</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/blog/">
+                <span class="icon"> <i aria-hidden="true" class="icon-quill"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+            <a href="/code/">
+                <span class="icon"> <i aria-hidden="true" class="icon-console"></i></span>
+                <span> code </span>
+            </a>
+            </li>
+            <li>
+            <a>
+                <span class="icon"> <i aria-hidden="true" class="icon-search"></i></span>
+                <span> search </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="icon-info"></i></span>
+                <span> about </span>
+            </a>
+            </li>
+        </ul>
+        <input type="text" id="search-input" class="st-default-search-input"  style="display:none;" >
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=Copying%20VHDs%20from%20one%20Azure%20subscription%20to%20another-http%3a%2f%2fmattwoolnough.github.io%2fcode%2fcopying-drives-from-one-azure-subscription-to-another%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fmattwoolnough.github.io%2fcode%2fcopying-drives-from-one-azure-subscription-to-another%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fmattwoolnough.github.io%2fcode%2fcopying-drives-from-one-azure-subscription-to-another%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fmattwoolnough.github.io%2fcode%2fcopying-drives-from-one-azure-subscription-to-another%2f" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fmattwoolnough.github.io%2fcode%2fcopying-drives-from-one-azure-subscription-to-another%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fmattwoolnough.github.io%2fcode%2fcopying-drives-from-one-azure-subscription-to-another%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fmattwoolnough.github.io%2fcode%2fcopying-drives-from-one-azure-subscription-to-another%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="https://www.twitter.com/mattwoolnough" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/mattwoolnough" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://au.linkedin.com/pub/matthew-woolnough/6/10a/45" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://github.com/mattwoolnough" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                    </ul>
+                    <span class="subcount">join 10+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">Copying VHDs from one Azure subscription to another</h1>
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<p>The comes a time when you need to move VHDs between Azure subscriptions. You have the option of downloading the VHD locally, but at around 120GB in size, it could take a while.</p>
+
+<p>There are also tools you can purchase such as Cerebrata&rsquo;s <a href="http://www.cerebrata.com/products/azure-management-studio/introduction">Azure Management Studio</a> for direct subscription to subscription copy, but at around $195USD for a single license, some might find it a little pricey.</p>
+
+<p>This script provides an alternative method for performing a direct subscription to subscription copy using only PowerShell.</p>
+
+<h1 id="the-code:0ab7d3ade4c22343f98a76d6348cb54c">The code</h1>
+
+<p>First off the code!</p>
+
+<pre><code class="language-powershell">param(
+    ### URL of VHD ###
+	[Parameter(Mandatory: $false)]
+    [String]$srcUri,
+
+	### Source Storage Account ###
+	[Parameter(Mandatory: $false)]
+    [String]$srcStorageAccount,
+
+	### Source Storage Key ###
+	[Parameter(Mandatory = $false)]
+    [String]$srcStorageKey,
+
+    # Destination Storage Account  
+    [Parameter(Mandatory = $false)]
+    [String]$destStorageAccount,
+
+	### Destination container
+	[Parameter(Mandatory = $false)]
+    [String]$destContainer,
+
+    # Destination Storage Key  
+    [Parameter(Mandatory = $false)]
+    [String]$destStorageKey&quot;
+	)
+
+# If Azure module isn't available -&gt; exit
+if ((Get-Module -ListAvailable Azure) -eq $null)
+{
+    throw &quot;Windows Azure Powershell not found! Please install from http://www.windowsazure.com/en-us/downloads/#cmd-line-tools&quot;
+}
+
+$filename = ([System.uri]$srcUri).Segments[-1]
+
+### Create the source storage account context ###
+$srcContext = New-AzureStorageContext  `
+    -StorageAccountName $srcStorageAccount `
+    -StorageAccountKey $srcStorageKey
+
+### Create the destination storage account context ###
+$destContext = New-AzureStorageContext `
+    -StorageAccountName $destStorageAccount `
+    -StorageAccountKey $destStorageKey
+
+### Start the asynchronous copy - specify the source authentication with -SrcContext ###
+$blob = Start-AzureStorageBlobCopy  `
+    -srcUri $srcUri `
+    -SrcContext $srcContext `
+    -DestContainer $destContainer `
+    -DestBlob $filename `
+    -DestContext $destContext
+
+$blob | Get-AzureStorageBlobCopyState  -WaitForComplete
+</code></pre>
+
+<h2 id="install-azure-powershell-module:0ab7d3ade4c22343f98a76d6348cb54c">Install Azure PowerShell module.</h2>
+
+<p>Installing Azure PowerShell is done using the Web Platform Installer.</p>
+
+<p>A number of prereqs are automatically installed including IIS8 express, WMF3.0 which includes PowerShell 3.0, MS SQL LocalDB edition, MS Azure Storage Emulator, MS Azure emulator.</p>
+
+<p>Download and run the wpilauncher using the link above. Click <em>Add</em> on the Microsoft Azure PowerShell line, then click install.</p>
+
+<p><img src="/media/2015-10-06 09_50_43-Web Platform Installer 5.0.png" alt="alt text" title="Web Platform Installer" /></p>
+
+<p>On the Prerequisites screen, review the license terms and click <em>I Accept</em> to continue.</p>
+
+<p><img src="/media/2015-10-06 10_34_54-Web Platform Installer 5.0.png" alt="WPI EULA" title="WPI EULA" /></p>
+
+<p>Once complete, click <em>Finish</em> and then <em>exit</em></p>
+
+<h2 id="get-rights-to-source-and-destination-azure-subscription:0ab7d3ade4c22343f98a76d6348cb54c">Get rights to source and destination Azure subscription</h2>
+
+<p>Run Add-AzureAccount for each of the subscriptions:</p>
+
+<pre><code class="language-powershell">PS C:\&gt;  Add-AzureAccount
+VERBOSE: Account &quot;mattwoolnough@hotmail.com&quot; has been added.
+VERBOSE: Subscription &quot;Visual Studio Premium with MSDN&quot; is selected as the default subscription.
+VERBOSE: To view all the subscriptions, please use Get-AzureSubscription.
+VERBOSE: To switch to a different subscription, please use Select-AzureSubscription.
+
+Id                             Type       Subscriptions                          Tenants
+--                             ----       -------------                          -------
+mattwoolnough@hotmail.com      User       4aff9fb2-c75b-4f6a-9b38-5cc85f197bf1   2776b29d-44e6-4be3-80ea-b3502ee11429
+                                          eaeea496-6477-40f2-9a70-99c4c9fa6682   b2be9eec-85ba-4ce9-8e2b-80fe51148463
+
+
+PS C:\&gt;  Add-AzureAccount
+VERBOSE: Account &quot;matthew.woolnough@unifysolutions.net&quot; has been added.
+VERBOSE: Subscription &quot;Visual Studio Premium with MSDN&quot; is selected as the default subscription.
+VERBOSE: To view all the subscriptions, please use Get-AzureSubscription.
+VERBOSE: To switch to a different subscription, please use Select-AzureSubscription.
+
+Id                             Type       Subscriptions                          Tenants
+--                             ----       -------------                          -------
+matthew.woolnough@unifysolutio User       2d8a596d-cb61-48f5-9ff4-84328c959d98   b74f1589-1bb7-4294-2461-86a27a55d8d0
+ns.net                                    7ffbcee9-b148-45f3-a2f7-ee91be3220b2
+                                          e7e1a9ad-96c4-40cd-b3b2-ece03551e20e
+
+</code></pre>
+
+<p>At this point it the PowerShell session has rights in both subscriptions.</p>
+
+<h2 id="get-access-keys:0ab7d3ade4c22343f98a76d6348cb54c">Get Access Keys</h2>
+
+<p>Login into the Source Subscription using the New Azure Portal <a href="https://portal.azure.com/">https://portal.azure.com/</a>
+Click either <em>Storage Accounts (classic)</em> or <em>Storage Accounts</em> - Whichever you&rsquo;re using.<br />
+
+<figure >
+    
+        <img src="/media/2015-10-06%2016_56_34-Virtual%20machines%20%28classic%29%20-%20Microsoft%20Azure.png" />
+    
+    
+</figure>
+</p>
+
+<p>Select the <em>Storage Account</em> that contains the Disks to copy, then click the <em>key</em> icon to access the <em>Manage keys</em> screen
+
+<figure >
+    
+        <img src="/media/2015-10-06%2017_04_47-Settings%20-%20Microsoft%20Azure.png" />
+    
+    
+</figure>
+</p>
+
+<p>Use the Storage Account name and Primary Access Key in the script as <em>srcStorageAccount</em> and <em>srcStorageKey</em>
+
+<figure >
+    
+        <img src="/media/2015-10-06%2017_45_06-Manage%20keys%20-%20Microsoft%20Azure.png" />
+    
+    
+</figure>
+</p>
+
+<p>Login into the Destination subscription using the New Azure Portal <a href="https://portal.azure.com/">https://portal.azure.com/</a> using a different browser.
+Perform the same process for the Destination Side, storing the values as <em>destStorageAccount</em> and <em>destStorageKey</em>. You will also need the container in the Storage account into which you wish the files to be copied.</p>
+
+<h2 id="get-vhd-location:0ab7d3ade4c22343f98a76d6348cb54c">Get VHD location</h2>
+
+<p>Select <em>Virtual Machines (classic)</em> from menu</p>
+
+
+<figure >
+    
+        <img src="/media/2015-10-06%2017_09_27-Storage%20accounts%20%28classic%29%20-%20Microsoft%20Azure.png" />
+    
+    
+</figure>
+
+
+<p>Click the machine whose disk you are to copy. If it&rsquo;s not switched off, do that now, then click <em>Disks</em>
+
+<figure >
+    
+        <img src="/media/2015-10-06%2017_11_49-Settings%20-%20Microsoft%20Azure.png" />
+    
+    
+</figure>
+</p>
+
+<p>Select the disk you wish to copy, then copy the <em>VHD location</em>. Use this value as <em>srcUri</em> in script.
+
+<figure >
+    
+        <img src="/media/2015-10-06%2017_42_01-VicUniADSERVER-VicUniADSERVER-2015-05-26.vhd%20-%20Microsoft%20Azure.png" />
+    
+    
+</figure>
+</p>
+
+<p>This should now be enough information to run the script.</p>
+
+<h2 id="execution:0ab7d3ade4c22343f98a76d6348cb54c">Execution</h2>
+
+<p>Pass in parameters gathered in previous steps as arguments as shown below.</p>
+
+<pre><code class="language-powershell">script.ps1
+ -srcUri &quot;https://portalvhds52qvvdzm625er.blob.core.windows.net/vhds/VicUniADSERVER-VicUniADSERVER-2015-05-26.vhd&quot; `
+ -srcStorageAccount &quot;portalvhds52qvvdzm625er&quot; ` 
+ -srcStorageKey &quot;S6Ta1Hm&lt;snip&gt;TZGsqY7sYEV7A==&quot; `
+ -destStorageAccount &quot;storage&quot; `
+ -destContainer &quot;vhds&quot; `
+ -destStorageKey  &quot;v&lt;snip&gt;iG7uz4Ql2J+9yHzdUvg==&quot; 
+</code></pre>
+
+<p>If everything goes well, you should get a progress indicator at the top of the screen as shown below.  You can CTRL-C to exit without impacting the copy.
+
+<figure >
+    
+        <img src="/media/2015-10-06%2016_36_13-Microsoft%20Azure%20PowerShell.png" />
+    
+    
+</figure>
+</p>
+
+<p>Once this process has completed, you&rsquo;ll see a success message like that below.  You can then create a disk from a VHD &amp; create a VM from the disk.<br />
+
+<figure >
+    
+        <img src="/media/2015-10-06%2017_31_58-Select%20Microsoft%20Azure%20PowerShell.png" />
+    
+    
+</figure>
+</p>
+
+        </article>
+  </div>
+</section>
+
+
+
+        <aside id="meta">
+        
+
+    <div>
+        <section id="datecount">
+          <h4 id="date"> Tue Oct 6, 2015 </h4>
+          <h5 id="wc"> 800 Words </h5>
+          <h5 id="readtime"> Read in about 4 Min </h5>
+        </section>
+
+        <ul id="categories">
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://mattwoolnough.github.io/tags/azure">Azure</a> </li>
+          
+            <li> <a href="http://mattwoolnough.github.io/tags/powershell">PowerShell</a> </li>
+          
+            <li> <a href="http://mattwoolnough.github.io/tags/cloud">Cloud</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://mattwoolnough.github.io/blog/creating-a-new-publish-settings-file-from-azure-portal/"><i class="icon-arrow-left"></i> Creating a new publish settings file from azure portal</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://mattwoolnough.github.io/blog/pingfederate-and-ad-kerberos-tokens/">PingFederate and Active Directory Kerberos Tokens <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+
+        </aside>
+
+        <meta itemprop="wordCount" content="715">
+        <meta itemprop="datePublished" content="2015-10-06">
+        <meta itemprop="url" content="http://mattwoolnough.github.io/code/copying-drives-from-one-azure-subscription-to-another/">
+
+
+    <aside id=comments>
+        <section class="post-comments">
+            <a class="muut" href="https://muut.com/i/Woolnough/comments:Copying%20VHDs%20from%20one%20Azure%20subscription%20to%20another">Comments</a>
+            <script src="//cdn.muut.com/1/moot.min.js"></script>
+        </section>
+    </aside>
+    <footer>
+      <div>
+        <p>
+        &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span itemprop="name">Matthew Woolnough.</span></span>
+        <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>;
+        please attribute properly and link back. <br>
+          Powered by<a href="http://gohugo.io">Hugo</a>. Based on<a href="https://github.com/spf13/spf13.com">spf13</a>.
+          Super awesome commenting by <a href="http://muut.com">Muut</a>.
+             Logo image sourced from<a href="http://www.freepik.com/free-photos-vectors/design">Freepik</a>. Disclaimer: The opinions expressed herein are my own personal opinions and do not represent my employer's view in any way.
+        </p>
+      </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/js/prism.js"></script>
+    <script type='text/javascript' src='/bower_components/jquery/jquery.js'></script>
+    <script type='text/javascript' src='/js/jquery.ba-hashchange.min.js'></script>
+    <script type="text/javascript" src="/js/jquery.swiftype.search.js"></script>
+    <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+            (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+      _st('install','ngtrsw8NsQZucSyqhWp7','2.0.0');
+    </script>
+
+    <script type="text/javascript">
+      $('#st-search-input').swiftypeSearch({
+        resultContainingElement: '#st-results-container',
+        engineKey: 'nV1GVnGX2VkcQBNN7FYy'
+      });
+    </script>
+
+    <script type="text/javascript">
+      $(".icon-search").click(function(){
+        $(".st-default-search-input").toggle();
+      });
+    </script>
+
+
+    <script type="text/javascript">
+    (function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+    fitText(document.getElementById('title'), 1)
+    </script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-66187909-4', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+    
+    <script>
+      $( document ).ready(function() {
+        function hidePanel() {
+          $('#moot-logo').attr ("style", "display: none !important");
+        }
+        setTimeout(hidePanel, 4000)
+      });
+    </script>
+
+  </body>
+</html>
+

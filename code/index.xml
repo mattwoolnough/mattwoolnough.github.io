@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Code on Woolnough</title>
+    <link>http://mattwoolnough.github.io/code/</link>
+    <description>Recent content in Code on Woolnough</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright (c) 2015, Matthew Woolnough; all rights reserved.</copyright>
+    <lastBuildDate>Tue, 06 Oct 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://mattwoolnough.github.io/code/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Copying VHDs from one Azure subscription to another</title>
+      <link>http://mattwoolnough.github.io/code/copying-drives-from-one-azure-subscription-to-another/</link>
+      <pubDate>Tue, 06 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://mattwoolnough.github.io/code/copying-drives-from-one-azure-subscription-to-another/</guid>
+      <description>
+
+&lt;p&gt;The comes a time when you need to move VHDs between Azure subscriptions. You have the option of downloading the VHD locally, but at around 120GB in size, it could take a while.&lt;/p&gt;
+
+&lt;p&gt;There are also tools you can purchase such as Cerebrata&amp;rsquo;s &lt;a href=&#34;http://www.cerebrata.com/products/azure-management-studio/introduction&#34;&gt;Azure Management Studio&lt;/a&gt; for direct subscription to subscription copy, but at around $195USD for a single license, some might find it a little pricey.&lt;/p&gt;
+
+&lt;p&gt;This script provides an alternative method for performing a direct subscription to subscription copy using only PowerShell.&lt;/p&gt;
+
+&lt;h1 id=&#34;the-code:0ab7d3ade4c22343f98a76d6348cb54c&#34;&gt;The code&lt;/h1&gt;
+
+&lt;p&gt;First off the code!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;param(
+    ### URL of VHD ###
+	[Parameter(Mandatory: $false)]
+    [String]$srcUri,
+
+	### Source Storage Account ###
+	[Parameter(Mandatory: $false)]
+    [String]$srcStorageAccount,
+
+	### Source Storage Key ###
+	[Parameter(Mandatory = $false)]
+    [String]$srcStorageKey,
+
+    # Destination Storage Account  
+    [Parameter(Mandatory = $false)]
+    [String]$destStorageAccount,
+
+	### Destination container
+	[Parameter(Mandatory = $false)]
+    [String]$destContainer,
+
+    # Destination Storage Key  
+    [Parameter(Mandatory = $false)]
+    [String]$destStorageKey&amp;quot;
+	)
+
+# If Azure module isn&#39;t available -&amp;gt; exit
+if ((Get-Module -ListAvailable Azure) -eq $null)
+{
+    throw &amp;quot;Windows Azure Powershell not found! Please install from http://www.windowsazure.com/en-us/downloads/#cmd-line-tools&amp;quot;
+}
+
+$filename = ([System.uri]$srcUri).Segments[-1]
+
+### Create the source storage account context ###
+$srcContext = New-AzureStorageContext  `
+    -StorageAccountName $srcStorageAccount `
+    -StorageAccountKey $srcStorageKey
+
+### Create the destination storage account context ###
+$destContext = New-AzureStorageContext `
+    -StorageAccountName $destStorageAccount `
+    -StorageAccountKey $destStorageKey
+
+### Start the asynchronous copy - specify the source authentication with -SrcContext ###
+$blob = Start-AzureStorageBlobCopy  `
+    -srcUri $srcUri `
+    -SrcContext $srcContext `
+    -DestContainer $destContainer `
+    -DestBlob $filename `
+    -DestContext $destContext
+
+$blob | Get-AzureStorageBlobCopyState  -WaitForComplete
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;install-azure-powershell-module:0ab7d3ade4c22343f98a76d6348cb54c&#34;&gt;Install Azure PowerShell module.&lt;/h2&gt;
+
+&lt;p&gt;Installing Azure PowerShell is done using the Web Platform Installer.&lt;/p&gt;
+
+&lt;p&gt;A number of prereqs are automatically installed including IIS8 express, WMF3.0 which includes PowerShell 3.0, MS SQL LocalDB edition, MS Azure Storage Emulator, MS Azure emulator.&lt;/p&gt;
+
+&lt;p&gt;Download and run the wpilauncher using the link above. Click &lt;em&gt;Add&lt;/em&gt; on the Microsoft Azure PowerShell line, then click install.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://mattwoolnough.github.io/media/2015-10-06 09_50_43-Web Platform Installer 5.0.png&#34; alt=&#34;alt text&#34; title=&#34;Web Platform Installer&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;On the Prerequisites screen, review the license terms and click &lt;em&gt;I Accept&lt;/em&gt; to continue.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://mattwoolnough.github.io/media/2015-10-06 10_34_54-Web Platform Installer 5.0.png&#34; alt=&#34;WPI EULA&#34; title=&#34;WPI EULA&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Once complete, click &lt;em&gt;Finish&lt;/em&gt; and then &lt;em&gt;exit&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;get-rights-to-source-and-destination-azure-subscription:0ab7d3ade4c22343f98a76d6348cb54c&#34;&gt;Get rights to source and destination Azure subscription&lt;/h2&gt;
+
+&lt;p&gt;Run Add-AzureAccount for each of the subscriptions:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;PS C:\&amp;gt;  Add-AzureAccount
+VERBOSE: Account &amp;quot;mattwoolnough@hotmail.com&amp;quot; has been added.
+VERBOSE: Subscription &amp;quot;Visual Studio Premium with MSDN&amp;quot; is selected as the default subscription.
+VERBOSE: To view all the subscriptions, please use Get-AzureSubscription.
+VERBOSE: To switch to a different subscription, please use Select-AzureSubscription.
+
+Id                             Type       Subscriptions                          Tenants
+--                             ----       -------------                          -------
+mattwoolnough@hotmail.com      User       4aff9fb2-c75b-4f6a-9b38-5cc85f197bf1   2776b29d-44e6-4be3-80ea-b3502ee11429
+                                          eaeea496-6477-40f2-9a70-99c4c9fa6682   b2be9eec-85ba-4ce9-8e2b-80fe51148463
+
+
+PS C:\&amp;gt;  Add-AzureAccount
+VERBOSE: Account &amp;quot;matthew.woolnough@unifysolutions.net&amp;quot; has been added.
+VERBOSE: Subscription &amp;quot;Visual Studio Premium with MSDN&amp;quot; is selected as the default subscription.
+VERBOSE: To view all the subscriptions, please use Get-AzureSubscription.
+VERBOSE: To switch to a different subscription, please use Select-AzureSubscription.
+
+Id                             Type       Subscriptions                          Tenants
+--                             ----       -------------                          -------
+matthew.woolnough@unifysolutio User       2d8a596d-cb61-48f5-9ff4-84328c959d98   b74f1589-1bb7-4294-2461-86a27a55d8d0
+ns.net                                    7ffbcee9-b148-45f3-a2f7-ee91be3220b2
+                                          e7e1a9ad-96c4-40cd-b3b2-ece03551e20e
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;At this point it the PowerShell session has rights in both subscriptions.&lt;/p&gt;
+
+&lt;h2 id=&#34;get-access-keys:0ab7d3ade4c22343f98a76d6348cb54c&#34;&gt;Get Access Keys&lt;/h2&gt;
+
+&lt;p&gt;Login into the Source Subscription using the New Azure Portal &lt;a href=&#34;https://portal.azure.com/&#34;&gt;https://portal.azure.com/&lt;/a&gt;
+Click either &lt;em&gt;Storage Accounts (classic)&lt;/em&gt; or &lt;em&gt;Storage Accounts&lt;/em&gt; - Whichever you&amp;rsquo;re using.&lt;br /&gt;
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://mattwoolnough.github.io/media/2015-10-06%2016_56_34-Virtual%20machines%20%28classic%29%20-%20Microsoft%20Azure.png&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Select the &lt;em&gt;Storage Account&lt;/em&gt; that contains the Disks to copy, then click the &lt;em&gt;key&lt;/em&gt; icon to access the &lt;em&gt;Manage keys&lt;/em&gt; screen
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://mattwoolnough.github.io/media/2015-10-06%2017_04_47-Settings%20-%20Microsoft%20Azure.png&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Use the Storage Account name and Primary Access Key in the script as &lt;em&gt;srcStorageAccount&lt;/em&gt; and &lt;em&gt;srcStorageKey&lt;/em&gt;
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://mattwoolnough.github.io/media/2015-10-06%2017_45_06-Manage%20keys%20-%20Microsoft%20Azure.png&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Login into the Destination subscription using the New Azure Portal &lt;a href=&#34;https://portal.azure.com/&#34;&gt;https://portal.azure.com/&lt;/a&gt; using a different browser.
+Perform the same process for the Destination Side, storing the values as &lt;em&gt;destStorageAccount&lt;/em&gt; and &lt;em&gt;destStorageKey&lt;/em&gt;. You will also need the container in the Storage account into which you wish the files to be copied.&lt;/p&gt;
+
+&lt;h2 id=&#34;get-vhd-location:0ab7d3ade4c22343f98a76d6348cb54c&#34;&gt;Get VHD location&lt;/h2&gt;
+
+&lt;p&gt;Select &lt;em&gt;Virtual Machines (classic)&lt;/em&gt; from menu&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://mattwoolnough.github.io/media/2015-10-06%2017_09_27-Storage%20accounts%20%28classic%29%20-%20Microsoft%20Azure.png&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;Click the machine whose disk you are to copy. If it&amp;rsquo;s not switched off, do that now, then click &lt;em&gt;Disks&lt;/em&gt;
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://mattwoolnough.github.io/media/2015-10-06%2017_11_49-Settings%20-%20Microsoft%20Azure.png&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Select the disk you wish to copy, then copy the &lt;em&gt;VHD location&lt;/em&gt;. Use this value as &lt;em&gt;srcUri&lt;/em&gt; in script.
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://mattwoolnough.github.io/media/2015-10-06%2017_42_01-VicUniADSERVER-VicUniADSERVER-2015-05-26.vhd%20-%20Microsoft%20Azure.png&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+
+&lt;p&gt;This should now be enough information to run the script.&lt;/p&gt;
+
+&lt;h2 id=&#34;execution:0ab7d3ade4c22343f98a76d6348cb54c&#34;&gt;Execution&lt;/h2&gt;
+
+&lt;p&gt;Pass in parameters gathered in previous steps as arguments as shown below.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;script.ps1
+ -srcUri &amp;quot;https://portalvhds52qvvdzm625er.blob.core.windows.net/vhds/VicUniADSERVER-VicUniADSERVER-2015-05-26.vhd&amp;quot; `
+ -srcStorageAccount &amp;quot;portalvhds52qvvdzm625er&amp;quot; ` 
+ -srcStorageKey &amp;quot;S6Ta1Hm&amp;lt;snip&amp;gt;TZGsqY7sYEV7A==&amp;quot; `
+ -destStorageAccount &amp;quot;storage&amp;quot; `
+ -destContainer &amp;quot;vhds&amp;quot; `
+ -destStorageKey  &amp;quot;v&amp;lt;snip&amp;gt;iG7uz4Ql2J+9yHzdUvg==&amp;quot; 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If everything goes well, you should get a progress indicator at the top of the screen as shown below.  You can CTRL-C to exit without impacting the copy.
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://mattwoolnough.github.io/media/2015-10-06%2016_36_13-Microsoft%20Azure%20PowerShell.png&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Once this process has completed, you&amp;rsquo;ll see a success message like that below.  You can then create a disk from a VHD &amp;amp; create a VM from the disk.&lt;br /&gt;
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://mattwoolnough.github.io/media/2015-10-06%2017_31_58-Select%20Microsoft%20Azure%20PowerShell.png&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Unblocking DLLs</title>
+      <link>http://mattwoolnough.github.io/code/unblock-dlls/</link>
+      <pubDate>Sat, 01 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://mattwoolnough.github.io/code/unblock-dlls/</guid>
+      <description>&lt;p&gt;NTFS Alternate Data Streams (ADS) provides the mechanism for MS to block the execution of DLLs.  This is a security mechanism that was first introduced in XP SP2 &amp;amp; Windows 2003 SP1. More info &lt;a href=&#34;http://community.bartdesmet.net/blogs/bart/archive/2005/08/19/3485.aspx&#34;&gt;here&lt;/a&gt;.
+Alternate data streams is also a popular way for hackers to hide files from administrators, but that&amp;rsquo;s another &lt;a href=&#34;http://www.irongeek.com/i.php?page=security/altds&#34;&gt;story&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The typical method used to remove the offending ADS, is by right clicking the DLL selecting properties and then clicking Unblock.
+This can become tedious if there are a lot of DLLs to unblock, or if it needs to be done frequently.&lt;/p&gt;
+
+&lt;p&gt;One well known method of removing ADS requires a binary called &lt;a href=&#34;http://technet.microsoft.com/en-au/sysinternals/bb897440.aspx&#34;&gt;streams.exe&lt;/a&gt; by Sysinternals&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;streams.exe -s -d  &amp;quot;*.*&amp;quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The new scriptomatic way of removing this ADS became available with PowerShell v3.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Get-ChildItem *.* | ForEach-Object { Remove-Item $_ -Stream Zone.Identifier }&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;It will throw an error similar to below if there is no ADS, but this is to be expected.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Remove-Item : Could not open the alternate data stream &#39;Zone.Identifier&#39; of the file c:\somedir\file.dll&lt;/code&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

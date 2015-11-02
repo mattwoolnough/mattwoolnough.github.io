@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cryptography on Woolnough</title>
+    <link>http://mattwoolnough.github.io/tags/cryptography/</link>
+    <description>Recent content in Cryptography on Woolnough</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright (c) 2015, Matthew Woolnough; all rights reserved.</copyright>
+    <lastBuildDate>Sat, 10 Oct 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://mattwoolnough.github.io/tags/cryptography/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>PingFederate 8 Ciphers</title>
+      <link>http://mattwoolnough.github.io/blog/pingfederate-ciphers/</link>
+      <pubDate>Sat, 10 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://mattwoolnough.github.io/blog/pingfederate-ciphers/</guid>
+      <description>
+
+&lt;p&gt;TL;DR It&amp;rsquo;s a good idea to install JCE.&lt;/p&gt;
+
+&lt;p&gt;Installing the Java Cryptography Extension &lt;a href=&#34;http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html&#34;&gt;JCE&lt;/a&gt; is highly recommended if your countries laws permit it&amp;rsquo;s importation and use, for two reasons: adherence with standards &amp;amp; interoperability.
+There&amp;rsquo;s some pretty cool &lt;a href=&#34;http://hueniverse.com/2015/09/19/auth-to-see-the-wizard-or-i-wrote-an-oauth-replacement/&#34;&gt;stuff&lt;/a&gt; being developed by those who don&amp;rsquo;t care too much for interoperability, but for those of us in the Enterprise Identity Management space, it&amp;rsquo;s essential.&lt;/p&gt;
+
+&lt;p&gt;Java 8 gives you basic crypto, but includes limits on &lt;a href=&#34;http://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html&#34;&gt;Maximum Keysizes&lt;/a&gt;. The following table provides a quick summary.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Algorithm&lt;/th&gt;
+&lt;th&gt;Maximum Keysize&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;DES&lt;/td&gt;
+&lt;td&gt;64&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;DESede (AKA TripleDES)&lt;/td&gt;
+&lt;td&gt;*&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;RC2&lt;/td&gt;
+&lt;td&gt;128&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;RC4&lt;/td&gt;
+&lt;td&gt;128&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;RC5&lt;/td&gt;
+&lt;td&gt;128&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;RSA&lt;/td&gt;
+&lt;td&gt;*&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;All others (inc. AES)&lt;/td&gt;
+&lt;td&gt;128&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;What does this mean for us?&lt;/p&gt;
+
+&lt;h3 id=&#34;tls:1c8015ba67315264ac72cb368c77405f&#34;&gt;TLS&lt;/h3&gt;
+
+&lt;p&gt;Fewer Crypto options.
+I don&amp;rsquo;t see this is a huge issue. When we deploy a PingFederate cluster, it&amp;rsquo;s typically behind a TLS Terminating Load Balancer anyway, which means that our TLS Sessions only exist in the data centre and we&amp;rsquo;re generally pretty happy with &lt;strong&gt;AES128&lt;/strong&gt; for TLS.&lt;/p&gt;
+
+&lt;h3 id=&#34;saml-ws:1c8015ba67315264ac72cb368c77405f&#34;&gt;SAML/WS-*&lt;/h3&gt;
+
+&lt;p&gt;No &lt;strong&gt;TripleDES&lt;/strong&gt; or &lt;strong&gt;AES256&lt;/strong&gt; XML block encryption option&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Not compliant with the &lt;a href=&#34;http://www.w3.org/TR/2002/REC-xmlenc-core-20021210/Overview.html&#34;&gt;W3C XML Encryption Recommendation&lt;/a&gt; (yes, only a recommendation) which is used by SAML &amp;amp; WS-* Protocols. This states that AES256 &amp;amp; TripleDES are &amp;lsquo;required&amp;rsquo;.&lt;/li&gt;
+&lt;li&gt;Assertions in the responses are in the clear on the above mentioned Load Balancer (and many other similar scenarios) without this.  This may be an issue if the assertions contain sensitive information.&lt;/li&gt;
+&lt;li&gt;We can&amp;rsquo;t be an Relying Party (RP) to an ADFS 2.x (and newer) Identity Provider (IP) without disabling the encryption of claims. &lt;code&gt;set-ADFSRelyingPartyTrust –TargetName &amp;quot;Ping RP&amp;quot; –EncryptClaims $False&lt;/code&gt;. It does not appear to be possible to downgrade ADFS to use AES128.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;openid-connect:1c8015ba67315264ac72cb368c77405f&#34;&gt;OpenID Connect&lt;/h3&gt;
+
+&lt;p&gt;The upcoming Javascript Object Signing and Encryption (JOSE) standard include a specification on &lt;a href=&#34;http://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40#section-4.1&#34;&gt;JWE key management&lt;/a&gt; and &lt;a href=&#34;http://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40#section-5.1&#34;&gt;JWE content encryption&lt;/a&gt;.
+The table below shows the encryption and key management options with and without the JCE installed. Many of the additional options enabled by installing the JCE are either optional or recommended in the listed specifications.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Config&lt;/th&gt;
+&lt;th&gt;JWE content encryption algorithms&lt;/th&gt;
+&lt;th&gt;JWE key management algorithms&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Without JCE&lt;/td&gt;
+&lt;td&gt;A128CBC-HS256, A128GCM&lt;/td&gt;
+&lt;td&gt;RSA1_5, RSA-OAEP, RSA-OAEP-256, dir, A128KW, ECDH-ES, ECDH-ES+A128KW, PBES2-HS256+A128KW, A128GCMKW&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;With JCE&lt;/td&gt;
+&lt;td&gt;A128CBC-HS256, A192CBC-HS384, A256CBC-HS512, A128GCM, A192GCM, A256GCM&lt;/td&gt;
+&lt;td&gt;RSA1_5, RSA-OAEP, RSA-OAEP-256, dir, A128KW, A192KW, A256KW, ECDH-ES, ECDH-ES+A128KW, ECDH-ES+A192KW, ECDH-ES+A256KW, PBES2-HS256+A128KW, PBES2-HS384+A192KW, PBES2-HS512+A256KW, A128GCMKW, A192GCMKW, A256GCMKW&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;installation:1c8015ba67315264ac72cb368c77405f&#34;&gt;Installation&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Ensure your JAVA_HOME is directed at your JRE, not the JDK.&lt;/li&gt;
+&lt;li&gt;Download the &lt;a href=&#34;[JCE](http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html&#34;&gt;Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files 8&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Extract the files to JAVA_HOME\lib\security&lt;/li&gt;
+&lt;li&gt;If you&amp;rsquo;re on a Windows OS, right click each policy file individually and unblock.&lt;/li&gt;
+&lt;li&gt;Edit the following file and enable the ciphers you wish to use.
+&lt;code&gt;&amp;lt;installDir&amp;gt;\pingfederate\server\default\data\config-store\com.pingidentity.crypto.SunJCEManager.xml&lt;/code&gt;&lt;br /&gt;
+Note: If you want to be super cautious, disable &lt;strong&gt;TLS_DHE_RSA_WITH_AES_256_CBC_SHA256&lt;/strong&gt; and &lt;strong&gt;TLS_DHE_RSA_WITH_AES_256_CBC_SHA&lt;/strong&gt; as these are potentially susceptible to Logjam vulnerability. The Logjam test site reports that an uncommon 1024 bit group is used so it should be ok, but why risk it!?&lt;/li&gt;
+&lt;li&gt;Restart the service&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If everything went successfully you should see messages in server.log resembling:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;org.jose4j.jwe.AesKeyWrapManagementAlgorithm$Aes256@7244d076 registered for alg algorithm A256KW&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;instead of:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;A256KW is unavailable so will not be registered for alg algorithms.&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;If you happen to notice the messages in the logs at startup stating that &lt;strong&gt;PS256&lt;/strong&gt;, &lt;strong&gt;PS384&lt;/strong&gt; &amp;amp; &lt;strong&gt;PS512&lt;/strong&gt; are unavailable, it&amp;rsquo;s safe to ignore these. They are unavoidable at the time of writing, as they require bouncy castle which is &lt;em&gt;not supported&lt;/em&gt; by PingFederate.&lt;/p&gt;
+
+&lt;p&gt;Full log samples here:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://gist.githubusercontent.com/mattwoolnough/5e77731b1696730137b0/raw/3146e8d74bb486ef4e0cb715942b09a2cc0966b1/server.log&#34;&gt;PingFederate Logs without JCE&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://gist.githubusercontent.com/mattwoolnough/432f514e357aebcd7ccd/raw/bedf2a8af662d999df453edba931c3a031d679d0/server.log&#34;&gt;PingFederate Logs with JCE&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

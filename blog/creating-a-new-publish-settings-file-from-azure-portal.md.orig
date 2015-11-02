@@ -1,0 +1,26 @@
+---
+date: 2015-10-08
+title: Creating a new publish settings file from azure portal
+Type: post
+tags: 
+- Azure
+- PowerShell
+- Cloud
+Section: blog
+---
+
+<<<<<<< HEAD
+With the introduction of Azure Resource Manager (ARM), it's necessary to use [Add-AzureAccount](https://msdn.microsoft.com/en-us/library/dn495128.aspx) in many scenarios to get access to Azure using PowerShell. Sometimes you just need to quickly grab the publishsettings file however.  I find it easiest to type the following into the browser:
+
+=======
+With the introduction of Azure Resource Manager (ARM), it's necessary to use [Add-AzureAccount](https://msdn.microsoft.com/en-us/library/dn495128.aspx) in many scenarios to get access to Azure using PowerShell.
+
+Sometimes you just need to quickly grab the publishsettings file however.  I find it easiest to type the following into the browser
+<!--more-->
+>>>>>>> efeaf24e6277179b2866e858e3c8f5ca3f1bb8d4
+[https://manage.windowsazure.com/publishsettings](https://manage.windowsazure.com/publishsettings).  
+
+You will need to log into your Azure tenancy in the browser, if you are not already, but typically you're already logged in and the publish settings file immediately downloads. This is especially helpful when you have multiple tenancies open in different browsers, like in the this previous code [post]({{< relref "code/copying-drives-from-one-azure-subscription-to-another.md" >}}).
+ Remember to be cautious with these publishsettings files, as they're the keys to your kingdom whilst they're active!
+
+![Your subscription file is being generated, and the download will begin shortly Web Page](/media/2015-10-08 16_56_09-Downloading-the-publish-profile.png)

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+    <head>
+        <meta charset="utf-8">
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        
+        <meta name="keywords" content="Javascript, testing, ">
+
+         
+        <meta property="og:type" content="article"/>
+        <meta property="og:description" content=""/>
+        <meta property="og:title" content="CasperJS testing PingFederate HTML form adapter : woolnough.com.au"/>
+        <meta property="og:site_name" content="Site by Matthew Woolnough"/>
+        <meta property="og:image" content="" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="" />
+        <meta property="og:image:height" content="" />
+        <meta property="og:url" content="http://mattwoolnough.github.io/blog/casperjs-testing-pingfederate-html-form-adapter/">
+        <meta property="og:locale" content="en_US">
+        <meta property="article:published_time" content="2014-11-19"/>
+        <meta property="article:modified_time" content="2014-11-19"/>
+
+
+        
+        <meta property="article:tag" content="Javascript">
+        <meta property="article:tag" content="testing">
+        
+        
+
+        
+        <meta name="twitter:card" content="summary">
+        
+        <meta name="twitter:site" content="@mattwoolnough">
+        <meta name="twitter:title" content="CasperJS testing PingFederate HTML form adapter : woolnough.com.au">
+        <meta name="twitter:creator" content="@mattwoolnough">
+        <meta name="twitter:description" content="">
+        <meta name="twitter:image:src" content="">
+        <meta name="twitter:domain" content="woolnough.com.au">
+
+
+
+        <base href="/">
+        <title> CasperJS testing PingFederate HTML form adapter - woolnough.com.au </title>
+        <link rel="canonical" href="http://mattwoolnough.github.io/blog/casperjs-testing-pingfederate-html-form-adapter/">
+        
+
+        <link href='http://fonts.googleapis.com/css?family=Fjalla+One|Open+Sans:300' rel='stylesheet' type='text/css' />
+        <link rel="stylesheet" href="/css/style.css" />
+        <link rel="stylesheet" href="/css/prism.css" />
+        <link rel="stylesheet" href="/css/tables.css" />
+        <link type="text/css" rel="stylesheet" href="/css/search.css" media="all" />
+
+        
+        <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    </head>
+
+<body lang="en" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+        <a href="/" border=0 id="logolink">
+            <img src="/media/wolf_circ.png" id="logo">
+        </img></a>
+    </figure>
+    <div id="byline">by Matthew Woolnough</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/blog/">
+                <span class="icon"> <i aria-hidden="true" class="icon-quill"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+            <a href="/code/">
+                <span class="icon"> <i aria-hidden="true" class="icon-console"></i></span>
+                <span> code </span>
+            </a>
+            </li>
+            <li>
+            <a>
+                <span class="icon"> <i aria-hidden="true" class="icon-search"></i></span>
+                <span> search </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="icon-info"></i></span>
+                <span> about </span>
+            </a>
+            </li>
+        </ul>
+        <input type="text" id="search-input" class="st-default-search-input"  style="display:none;" >
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=CasperJS%20testing%20PingFederate%20HTML%20form%20adapter-http%3a%2f%2fmattwoolnough.github.io%2fblog%2fcasperjs-testing-pingfederate-html-form-adapter%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fmattwoolnough.github.io%2fblog%2fcasperjs-testing-pingfederate-html-form-adapter%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fmattwoolnough.github.io%2fblog%2fcasperjs-testing-pingfederate-html-form-adapter%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fmattwoolnough.github.io%2fblog%2fcasperjs-testing-pingfederate-html-form-adapter%2f" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fmattwoolnough.github.io%2fblog%2fcasperjs-testing-pingfederate-html-form-adapter%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fmattwoolnough.github.io%2fblog%2fcasperjs-testing-pingfederate-html-form-adapter%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fmattwoolnough.github.io%2fblog%2fcasperjs-testing-pingfederate-html-form-adapter%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="https://www.twitter.com/mattwoolnough" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/mattwoolnough" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://au.linkedin.com/pub/matthew-woolnough/6/10a/45" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://github.com/mattwoolnough" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                    </ul>
+                    <span class="subcount">join 10+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+</header>
+
+
+
+<section id="main">
+    <h1 itemprop="name" id="title">CasperJS testing PingFederate HTML form adapter</h1>
+    <div id="toc" class="well col-md-4 col-sm-6">
+        <nav id="TableOfContents">
+<ul>
+<li><a href="#phantomjs:0b8a11de59b185de606bc0cf3613b22a">PhantomJS</a></li>
+<li><a href="#casperjs:0b8a11de59b185de606bc0cf3613b22a">CasperJS</a>
+<ul>
+<li><a href="#installation:0b8a11de59b185de606bc0cf3613b22a">Installation</a>
+<ul>
+<li><a href="#windows:0b8a11de59b185de606bc0cf3613b22a">Windows</a></li>
+<li><a href="#linux:0b8a11de59b185de606bc0cf3613b22a">Linux</a></li>
+<li><a href="#mac:0b8a11de59b185de606bc0cf3613b22a">Mac</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#configuration:0b8a11de59b185de606bc0cf3613b22a">Configuration</a></li>
+<li><a href="#solution-code:0b8a11de59b185de606bc0cf3613b22a">Solution code</a></li>
+</ul>
+</nav>
+    </div>
+    <div>
+        <article itemprop="articleBody" id="content">
+            
+
+<p>During a deployment of Ping Identity&rsquo;s <a href="https://www.pingidentity.com/en/products/pingfederate.html">PingFederate</a> product, we had a need to automate logging into the HTML Form Adapter.  Whilst there are many ways to automate this, I really liked this one, and thought it worth sharing.</p>
+
+<p>The solution has 2 components:</p>
+
+<ul>
+<li><a href="http://phantomjs.org">PhantomJS</a></li>
+<li><a href="http://casperjs.org">CasperJS</a></li>
+</ul>
+
+<h1 id="phantomjs:0b8a11de59b185de606bc0cf3613b22a">PhantomJS</h1>
+
+<p>PhantomJS is a headless browser this uses the WebKit browser by default, but can also use the Gecko engine courtesy of SlimerJS.</p>
+
+<h1 id="casperjs:0b8a11de59b185de606bc0cf3613b22a">CasperJS</h1>
+
+<p>CasperJS started life as a bunch of scripts which drove PhantomJS &amp; has since evolved into a full framework. This code utilizes version 1.1 of CasperJS, which despite being a development version is quite stable and is in fact the version the maintainers of CasperJS recommend.</p>
+
+<h2 id="installation:0b8a11de59b185de606bc0cf3613b22a">Installation</h2>
+
+<h3 id="windows:0b8a11de59b185de606bc0cf3613b22a">Windows</h3>
+
+<p>Download phantomjs: <a href="http://phantomjs.org/download.html">http://phantomjs.org/download.html</a>
+Unzip it to C:\phantomjs</p>
+
+<p>Download the latest zip from this page: <a href="http://docs.casperjs.org/en/latest/installation.html">http://docs.casperjs.org/en/latest/installation.html</a> and unzip to a safe &amp; sensible location like C:\casperjs</p>
+
+<p>Modify the PATH variable to make the binary accessible</p>
+
+<pre><code>setx PATH &quot;%PATH%;C:\phantomjs\;C:\casperjs\bin&quot;
+</code></pre>
+
+<h3 id="linux:0b8a11de59b185de606bc0cf3613b22a">Linux</h3>
+
+<pre><code class="language-bash">$ wget https://phantomjs.googlecode.com/files/phantomjs-1.9.8-linux-x86_64.tar.bz2
+$ tar xvjf phantomjs-1.9.8-linux-x86_64.tar.bz2
+$ cd phantomjs-1.9.8-linux-x86_64
+$ sudo ln -sf &quot;$(pwd)&quot;/bin/phantomjs /usr/local/bin/phantomjs
+$ cd ..
+$ git clone git://github.com/n1k0/casperjs.git
+$ cd casperjs
+$ sudo ln -sf &quot;$(pwd)&quot;/bin/casperjs /usr/local/bin/casperjs
+</code></pre>
+
+<h3 id="mac:0b8a11de59b185de606bc0cf3613b22a">Mac</h3>
+
+<pre><code class="language-bash">brew update &amp;&amp; brew install phantomjs
+brew install casperjs --devel
+</code></pre>
+
+<h1 id="configuration:0b8a11de59b185de606bc0cf3613b22a">Configuration</h1>
+
+<p>The configuration required is minimal.</p>
+
+<p>PhantomJS by default utilizes SSLv3, so if you encounter the following warning and the script continually fails to complete:</p>
+
+<pre><code class="language-language-bash">[warning] [phantom] Loading resource failed with status=fail: https://fed.companyb.com/idp/prp.wsf?wa=wsignin1.0&amp;wtrealm=https://applicationa.companyb.com/&amp;wfresh=15&amp;wctx=rm=0&amp;id=passive&amp;ru=%2fCIS%2f&amp;wct=2014-11-19T05:34:06Z
+</code></pre>
+
+<p>The solution is to enable TLS using one of the following methods:</p>
+
+<p>1) Specify the protocol to use each time you execute casperjs:</p>
+
+<p><code>casperjs --ssl-protocol=tlsv1</code></p>
+
+<p>2) Or, edit the file C:\casperjs\bin\casperjs and add the above switch to the ENGINE_ARGS</p>
+
+<p><code>ENGINE_ARGS = ['ssl-protocol=tlsv1']</code></p>
+
+<h1 id="solution-code:0b8a11de59b185de606bc0cf3613b22a">Solution code</h1>
+
+<pre><code class="language-javascript">&quot;use strict&quot;;
+ 
+var  url = 'https://applicationa.companyb.com/',
+username = 'mattheww',
+password = 'password',
+   debug = true,
+logLevel = null;
+  
+if (debug) {
+  logLevel = 'debug';
+} else {
+  logLevel = 'info';
+}
+ 
+var casper = require('casper').create({
+  pageSettings: {
+    loadImages:  false,   // The WebPage instance used by Casper will
+    loadPlugins: false,   // use these settings
+    userAgent: 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.2 Safari/537.36'
+  },
+    logLevel: logLevel,   // debug; info; warning; error
+    verbose: true,        // log messages will be printed out to the console
+    options: {
+      waitTimeout: 25000, // Timeout of 25 sec
+    }
+});
+
+casper.start(url, function () {
+  this.log('Attempting login to ' + url, 'info');
+  this.fill('form', {
+    'pf.username': username,
+    'pf.pass': password
+  }, true);
+});
+
+casper.then(function() {
+  var currentURL = this.getCurrentUrl();
+  if (currentURL === url) {
+    console.log(&quot;SUCCESS!: We're in &quot; + currentURL);
+  } else if (/prp.ping$/i.test(currentURL)) {
+    console.log(&quot;FAIL!: We're stuck on prp.ping&quot;);
+      if (debug) {
+        // Dump whole page for visual inspection
+        var page = this.evaluate(function() {
+                       return document;
+        });
+        this.echo(page.all[0].outerHTML);
+      } else {
+        if (this.exists('div.ping-body form div div')) {
+          var msg = this.fetchText('div.ping-body form div div');
+          var msgArray = msg.split('\t');
+          this.echo(msgArray[0]);
+        } else if (this.exists('div.ping-body')) {
+          var pingBody = this.fetchText('div.ping-body');
+          if (pingBody.indexOf('Access denied (403)') &gt;= 0 ) {
+            this.echo(pingBody);
+          }
+        }
+      }
+  }
+});
+ 
+casper.run();
+</code></pre>
+
+<p>When successful,the output should resemble below</p>
+
+<pre><code class="language-bash">C:\casperjs\bin&gt;casperjs.exe ..\mw\run.js
+[info] [phantom] Starting...
+[info] [phantom] Running suite: 3 steps
+[info] [phantom] Step anonymous 2/3 https://fed.companyb.com/idp/ZVlk9/resume/idp/prp.ping (HTTP 200)
+[info] [phantom] Attempting login to https://applicationa.companyb.com/
+[info] [remote] attempting to fetch form element from selector: 'form'
+[info] [remote] submitting form to /idp/ZVlk9/resume/idp/prp.ping, HTTP POST
+[info] [phantom] Step anonymous 2/3: done in 154ms.
+[info] [phantom] Step anonymous 3/3 https://applicationa.companyb.com/ (HTTP 200)
+SUCCESS!: We're in https://applicationa.companyb.com/
+[info] [phantom] Step anonymous 3/3: done in 730ms.
+[info] [phantom] Done 3 steps in 749ms
+</code></pre>
+
+<p>A failure will resemble the following:</p>
+
+<pre><code class="language-bash">C:\casperjs\bin&gt;casperjs ..\mw\run.js 
+[info] [phantom] Starting...
+[info] [phantom] Running suite: 3 steps
+[info] [phantom] Step anonymous 2/3 https://fed.companyb.com/idp/82l2u/resume/idp/prp.ping (HTTP 200)
+[info] [phantom] Attempting login to https://applicationa.companyb.com/
+[info] [remote] attempting to fetch form element from selector: 'form'
+[info] [remote] submitting form to /idp/82l2u/resume/idp/prp.ping, HTTP POST
+[info] [phantom] Step anonymous 2/3: done in 163ms.
+[info] [phantom] Step anonymous 3/3 https://fed.companyb.com/idp/82l2u/resume/idp/prp.ping (HTTP 200)
+FAIL!: We're stuck on prp.ping
+Authentication failed. You have used an invalid username and/or password.
+[info] [phantom] Step anonymous 3/3: done in 469ms.
+[info] [phantom] Done 3 steps in 485ms
+ 
+C:\casperjs\bin&gt;
+</code></pre>
+
+        </article>
+    </div>
+</section>
+
+
+
+        <aside id="meta">
+        
+
+    <div>
+        <section id="datecount">
+          <h4 id="date"> Wed Nov 19, 2014 </h4>
+          <h5 id="wc"> 700 Words </h5>
+          <h5 id="readtime"> Read in about 4 Min </h5>
+        </section>
+
+        <ul id="categories">
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://mattwoolnough.github.io/tags/javascript">Javascript</a> </li>
+          
+            <li> <a href="http://mattwoolnough.github.io/tags/testing">testing</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://mattwoolnough.github.io/blog/pingfederate-and-ad-kerberos-tokens/"><i class="icon-arrow-left"></i> PingFederate and Active Directory Kerberos Tokens</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://mattwoolnough.github.io/code/unblock-dlls/">Unblocking DLLs <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+
+        </aside>
+
+        <meta itemprop="wordCount" content="662">
+        <meta itemprop="datePublished" content="2014-11-19">
+        <meta itemprop="url" content="http://mattwoolnough.github.io/blog/casperjs-testing-pingfederate-html-form-adapter/">
+
+
+    <aside id=comments>
+        <section class="post-comments">
+            <a class="muut" href="https://muut.com/i/Woolnough/comments:CasperJS%20testing%20PingFederate%20HTML%20form%20adapter">Comments</a>
+            <script src="//cdn.muut.com/1/moot.min.js"></script>
+        </section>
+    </aside>
+    <footer>
+      <div>
+        <p>
+        &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span itemprop="name">Matthew Woolnough.</span></span>
+        <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>;
+        please attribute properly and link back. <br>
+          Powered by<a href="http://gohugo.io">Hugo</a>. Based on<a href="https://github.com/spf13/spf13.com">spf13</a>.
+          Super awesome commenting by <a href="http://muut.com">Muut</a>.
+             Logo image sourced from<a href="http://www.freepik.com/free-photos-vectors/design">Freepik</a>. Disclaimer: The opinions expressed herein are my own personal opinions and do not represent my employer's view in any way.
+        </p>
+      </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/js/prism.js"></script>
+    <script type='text/javascript' src='/bower_components/jquery/jquery.js'></script>
+    <script type='text/javascript' src='/js/jquery.ba-hashchange.min.js'></script>
+    <script type="text/javascript" src="/js/jquery.swiftype.search.js"></script>
+    <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+            (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+      _st('install','ngtrsw8NsQZucSyqhWp7','2.0.0');
+    </script>
+
+    <script type="text/javascript">
+      $('#st-search-input').swiftypeSearch({
+        resultContainingElement: '#st-results-container',
+        engineKey: 'nV1GVnGX2VkcQBNN7FYy'
+      });
+    </script>
+
+    <script type="text/javascript">
+      $(".icon-search").click(function(){
+        $(".st-default-search-input").toggle();
+      });
+    </script>
+
+
+    <script type="text/javascript">
+    (function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+    fitText(document.getElementById('title'), 1)
+    </script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-66187909-4', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+    
+    <script>
+      $( document ).ready(function() {
+        function hidePanel() {
+          $('#moot-logo').attr ("style", "display: none !important");
+        }
+        setTimeout(hidePanel, 4000)
+      });
+    </script>
+
+  </body>
+</html>
+

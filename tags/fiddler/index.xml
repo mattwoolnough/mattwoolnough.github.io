@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Fiddler on Woolnough</title>
+    <link>http://mattwoolnough.github.io/tags/fiddler/</link>
+    <description>Recent content in Fiddler on Woolnough</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright (c) 2015, Matthew Woolnough; all rights reserved.</copyright>
+    <lastBuildDate>Thu, 10 Sep 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://mattwoolnough.github.io/tags/fiddler/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>PingFederate and Active Directory Kerberos Tokens</title>
+      <link>http://mattwoolnough.github.io/blog/pingfederate-and-ad-kerberos-tokens/</link>
+      <pubDate>Thu, 10 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://mattwoolnough.github.io/blog/pingfederate-and-ad-kerberos-tokens/</guid>
+      <description>&lt;p&gt;An old AD issue that pops up from time to time is Kerberos Token Bloat. In a nutshell, the AD groups you&amp;rsquo;re a member of, the bigger your Kerberos Token. Eventually your token gets too big and stuff breaks.&lt;/p&gt;
+
+&lt;p&gt;In the most common use case, when you attempt to access a web site, the Kerberos token is encoded and placed in the Authorization header of the Internet Explorer HTTP request.&lt;/p&gt;
+
+&lt;p&gt;Servers receiving the HTTP request have a MaxTokenSize configured. Historically the MaxTokenSize was 12k. With Server 2012, this was bumped up to 48k - the maximum possible - constrained by HTTP Protocol. Some older documentation refers to a 65535 bytes, but this advice didn&amp;rsquo;t take into account that the kerberos token is Base64 encoded, which adds to the length of the token.&lt;/p&gt;
+
+&lt;p&gt;PingFederate is configured to have a header size 8K. When integrating with a Kerberos Forest, We&amp;rsquo;re typically upping this to 48K, in line with Windows 2012+ .&lt;/p&gt;
+
+&lt;p&gt;Ping offers some guidance on changing the size for the different versions &lt;a href=&#34;https://ping.force.com/Support/PingFederate/Integrations/IWA-Kerberos-authentication-may-fail-when-user-belongs-to-many-AD-groups&#34;&gt;here&lt;/a&gt;, but essentially for version 8, we want to make the following change in &lt;code&gt;&amp;lt;installdir&amp;gt;\pingfederate\bin\start.ini&lt;/code&gt;, to give it the same max size as server 2012.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;#jetty.request.header.size=8192
+jetty.request.header.size=49152
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you&amp;rsquo;re curious about your own token size:
+* On the desktop, use &lt;a href=&#34;http://www.microsoft.com/en-au/download/details.aspx?id=1448&#34;&gt;tokensz&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;C:\temp&amp;gt;tokensz.exe /compute_tokensize
+
+Name: Kerberos Comment: Microsoft Kerberos V1.0
+Current PackageInfo-&amp;gt;MaxToken: 48000
+
+Using user to user
+QueryKeyInfo:
+Signature algorithm = HMAC-SHA1-96
+Encrypt algorithm = Kerberos AES256-CTS-HMAC-SHA1-96
+KeySize = 256
+Flags = 2083e
+Signature Algorithm = 16
+Encrypt Algorithm = 18
+   Start:9/22/2015 3:33:05
+  Expiry:9/22/2015 12:31:44
+Current Time: 9/22/2015 3:33:05
+MaxToken (complete context)  6410
+
+C:\temp&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://fullstackiam-ghost.s3.amazonaws.com/2015/Sep/fiddler-1442821722679.PNG&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;On the wire, use fiddler by adding a &lt;a href=&#34;http://docs.telerik.com/fiddler/Extend-Fiddler/AddRules&#34;&gt;custom rule&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;public  static  BindUIColumn(&amp;quot;Req-Header-Length&amp;quot;)
+function  CalcMethodCol2(oS:  Session){
+    if (null != oS.oRequest)
+        return oS.oRequest.headers.ByteCount().ToString();
+    else
+        return String.Empty;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;public  static  BindUIColumn(&amp;quot;Resp-Header-Length&amp;quot;)
+function  CalcMethodCol3(oS:  Session){
+    if (null != oS.oResponse)
+        return oS.oResponse.headers.ByteCount().ToString();
+    else
+        return String.Empty;
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
